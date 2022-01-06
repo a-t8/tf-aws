@@ -1,5 +1,3 @@
-# --- network/main.tf ---
-
 data "aws_availability_zones" "available" {}
 
 resource "random_integer" "random" {
@@ -8,10 +6,12 @@ resource "random_integer" "random" {
   max = 10
 
 }
+
 resource "random_shuffle" "az_list" {
   input        = data.aws_availability_zones.available.names
   result_count = var.max_subnets
 }
+
 resource "aws_vpc" "atul_vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
@@ -23,7 +23,6 @@ resource "aws_vpc" "atul_vpc" {
 }
 
 resource "aws_subnet" "atul_public_subnet" {
-
   count = var.public_sn_count
 
   vpc_id                  = aws_vpc.atul_vpc.id
@@ -31,32 +30,26 @@ resource "aws_subnet" "atul_public_subnet" {
   map_public_ip_on_launch = true
   availability_zone       = random_shuffle.az_list.result[count.index]
 
-
   tags = {
     Name = "atul_public_${count.index + 1}_${var.env_code}"
   }
 }
 
 resource "aws_route_table_association" "atul_public_association" {
-
   count = var.public_sn_count
 
   subnet_id      = aws_subnet.atul_public_subnet.*.id[count.index]
   route_table_id = aws_route_table.atul_public_rt.id
-
 }
 
 
 resource "aws_subnet" "atul_private_subnet" {
-
   count = var.private_sn_count
 
   vpc_id                  = aws_vpc.atul_vpc.id
   cidr_block              = var.private_cidrs[count.index]
   map_public_ip_on_launch = false
   availability_zone       = random_shuffle.az_list.result[count.index]
-
-
 
   tags = {
     Name = "atul_private_${count.index + 1}_${var.env_code}"
@@ -95,14 +88,12 @@ resource "aws_default_route_table" "atul_private_rt" {
 }
 
 resource "aws_eip" "atul_nat" {
-
   count = var.private_sn_count
 
   vpc = true
 }
 
 resource "aws_nat_gateway" "atul_ngw" {
-
   count = var.private_sn_count
 
   allocation_id = aws_eip.atul_nat.*.id[count.index]
@@ -114,7 +105,6 @@ resource "aws_nat_gateway" "atul_ngw" {
 }
 
 resource "aws_route_table" "atul_private_route_table" {
-
   count = var.private_sn_count
 
   vpc_id = aws_vpc.atul_vpc.id
@@ -130,10 +120,8 @@ resource "aws_route_table" "atul_private_route_table" {
 }
 
 resource "aws_route_table_association" "atul_route_table_association" {
-
   count = var.private_sn_count
 
   subnet_id      = aws_subnet.atul_private_subnet.*.id[count.index]
   route_table_id = aws_route_table.atul_private_route_table.*.id[count.index]
-
 }
