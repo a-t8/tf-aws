@@ -1,12 +1,5 @@
 data "aws_availability_zones" "available" {}
 
-resource "random_integer" "random" {
-
-  min = 1
-  max = 10
-
-}
-
 resource "random_shuffle" "az_list" {
   input        = data.aws_availability_zones.available.names
   result_count = var.max_subnets
