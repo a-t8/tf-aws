@@ -23,3 +23,9 @@ variable "private_sn_count" {
 variable "max_subnets" {
   type = number
 }
+
+variable "env_code" {
+  description = "Value of the enviroment like dev or prod"
+  type        = string
+  default     = "dev"
+}
