@@ -11,8 +11,9 @@ terraform {
 
 
 resource "aws_s3_bucket" "atul_state_bucket" {
-  bucket = "atul-terraform-state"
-  acl    = "private"
+  bucket        = "atul-terraform-state"
+  acl           = "private"
+  force_destroy = false
 
   tags = {
     Name = "atul-terraform-state"
@@ -26,6 +27,7 @@ resource "aws_dynamodb_table" "atul_lock_table" {
   read_capacity  = 5
   write_capacity = 5
   hash_key       = "LockID"
+  table_class    = "STANDARD"
 
   attribute {
     name = "LockID"

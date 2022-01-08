@@ -13,6 +13,9 @@ resource "aws_vpc" "atul_vpc" {
   tags = {
     Name = "atul_vpc_${var.env_code}"
   }
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_subnet" "atul_public_subnet" {
@@ -129,4 +132,27 @@ resource "aws_route_table_association" "atul_route_table_association" {
   subnet_id      = aws_subnet.atul_private_subnet.*.id[count.index]
   route_table_id = aws_route_table.atul_private_route_table.*.id[count.index]
 
+}
+
+resource "aws_security_group" "atul_sg" {
+  for_each = var.security_groups
+  name        = each.value.name
+  description = each.value.description
+  vpc_id      = aws_vpc.atul_vpc.id
+  dynamic "ingress" {
+    
+    for_each = each.value.ingress
+    content {
+    from_port   = ingress.value.from
+    to_port     = ingress.value.to
+    protocol    = ingress.value.protocol
+    cidr_blocks = ingress.value.cidr_blocks
+  }
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
