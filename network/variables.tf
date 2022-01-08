@@ -34,5 +34,5 @@ variable "access_ip" {
 }
 
 variable "security_groups" {
-  
+
 }

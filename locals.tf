@@ -33,12 +33,12 @@ locals {
       description = "Security Group for Private Access"
       ingress = {
         ssh = {
-          from        = 3306    
+          from        = 3306
           to          = 3306
           protocol    = "tcp"
           cidr_blocks = [local.vpc_cidr]
         }
-        
+
       }
     }
   }
