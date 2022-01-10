@@ -1,12 +1,8 @@
 locals {
   vpc_cidr = "10.0.0.0/16"
-}
 
-locals {
   newbits = "8"
-}
 
-locals {
   security_groups = {
     public = {
       name        = "public_sg"
@@ -27,7 +23,6 @@ locals {
       }
     }
 
-
     private = {
       name        = "private_sg"
       description = "Security Group for Private Access"
@@ -38,7 +33,6 @@ locals {
           protocol    = "tcp"
           cidr_blocks = [local.vpc_cidr]
         }
-
       }
     }
   }
