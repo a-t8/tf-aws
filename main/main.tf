@@ -1,5 +1,3 @@
-
-
 module "network" {
   source           = "../network"
   vpc_cidr         = local.vpc_cidr
