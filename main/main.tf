@@ -1,7 +1,7 @@
 
 
 module "network" {
-  source           = "./network"
+  source           = "../network"
   vpc_cidr         = local.vpc_cidr
   public_sn_count  = 2
   private_sn_count = 2
@@ -14,5 +14,6 @@ module "network" {
 }
 
 module "backend" {
-  source = "./backend_storage"
+  source = "../backend_storage"
 }
+  

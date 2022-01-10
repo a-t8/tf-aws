@@ -29,3 +29,10 @@ variable "env_code" {
   type        = string
   default     = "dev"
 }
+variable "access_ip" {
+  type = string
+}
+
+variable "security_groups" {
+
+}
