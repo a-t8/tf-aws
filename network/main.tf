@@ -1,10 +1,10 @@
-
 data "aws_availability_zones" "available" {}
 
 resource "random_shuffle" "az_list" {
   input        = data.aws_availability_zones.available.names
   result_count = var.max_subnets
 }
+
 resource "aws_vpc" "atul_vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true

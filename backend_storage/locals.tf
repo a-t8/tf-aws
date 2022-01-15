@@ -38,6 +38,7 @@ locals {
           protocol    = "tcp"
           cidr_blocks = [local.vpc_cidr]
         }
+
       }
     }
   }

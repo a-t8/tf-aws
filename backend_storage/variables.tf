@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "profile" {
   description = "Value of the AWS CLI Profile"
   type        = string
-  default     = "iamadmin-production"
+  default     = "iamadmin-general"
 }
 
 variable "env_code" {
