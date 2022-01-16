@@ -1,5 +1,6 @@
 module "network" {
   source           = "../network"
+
   vpc_cidr         = local.vpc_cidr
   public_sn_count  = 2
   private_sn_count = 2
@@ -8,10 +9,4 @@ module "network" {
   max_subnets      = 20
   access_ip        = var.access_ip
   security_groups  = local.security_groups
-
 }
-
-module "backend" {
-  source = "../backend_storage"
-}
-  
