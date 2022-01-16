@@ -1,2 +1,0 @@
-# AWS VPC using Terraform
-
