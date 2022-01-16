@@ -9,4 +9,5 @@ module "network" {
   max_subnets      = 20
   access_ip        = local.access_ip
   security_groups  = local.security_groups
+  env_code         = "env_a"
 }
