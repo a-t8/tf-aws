@@ -12,13 +12,13 @@ locals {
           from        = 22
           to          = 22
           protocol    = "tcp"
-          cidr_blocks = [var.access_ip]
+          cidr_blocks = [local.access_ip]
         }
         http = {
           from        = 80
           to          = 80
           protocol    = "tcp"
-          cidr_blocks = [var.access_ip]
+          cidr_blocks = [local.access_ip]
         }
       }
     }
@@ -36,4 +36,6 @@ locals {
       }
     }
   }
+
+  access_ip = "0.0.0.0/0"
 }
