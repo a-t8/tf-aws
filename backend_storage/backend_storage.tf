@@ -1,10 +1,3 @@
-terraform {
-  backend "s3" {
-    key     = "atul-terraform-state/terraform.tfstate"
-    region  = "us-west-2"
-  }
-}
-
 resource "aws_s3_bucket" "atul_state_bucket" {
   bucket        = "atul-terraform-state"
   acl           = "private"
