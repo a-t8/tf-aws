@@ -7,13 +7,13 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "atul-terraform-state"
+    bucket         = "atul--uw2-tf-bucket"
     key            = "main/terraform.tfstate"
     region         = "us-west-2"
-    dynamodb_table = "tf-state-locker"
+    dynamodb_table = "atul-tf-table"
   }
 }
 
 provider "aws" {
-  region  = "us-west-2"
+  region = "us-west-2"
 }
