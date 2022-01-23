@@ -1,12 +1,8 @@
 locals {
   vpc_cidr = "10.0.0.0/16"
-}
 
-locals {
   newbits = "8"
-}
 
-locals {
   security_groups = {
     public = {
       name        = "public_sg"
@@ -16,17 +12,16 @@ locals {
           from        = 22
           to          = 22
           protocol    = "tcp"
-          cidr_blocks = [var.access_ip]
+          cidr_blocks = [local.access_ip]
         }
         http = {
           from        = 80
           to          = 80
           protocol    = "tcp"
-          cidr_blocks = [var.access_ip]
+          cidr_blocks = [local.access_ip]
         }
       }
     }
-
 
     private = {
       name        = "private_sg"
@@ -41,4 +36,6 @@ locals {
       }
     }
   }
+
+  access_ip = "0.0.0.0/0"
 }
