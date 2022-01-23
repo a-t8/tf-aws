@@ -14,6 +14,7 @@ resource "aws_vpc" "atul_vpc" {
   tags = {
     Name = "atul_vpc_${var.env_code}"
   }
+
   lifecycle {
     create_before_destroy = true
   }
@@ -122,7 +123,7 @@ resource "aws_route_table_association" "atul_route_table_association" {
 }
 
 resource "aws_security_group" "atul_sg" {
-  for_each    = var.security_groups
+  for_each = var.security_groups
 
   name        = each.value.name
   description = each.value.description
