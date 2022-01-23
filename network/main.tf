@@ -14,7 +14,6 @@ resource "aws_vpc" "atul_vpc" {
   tags = {
     Name = "atul_vpc_${var.env_code}"
   }
-
   lifecycle {
     create_before_destroy = true
   }
