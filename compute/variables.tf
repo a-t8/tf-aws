@@ -8,3 +8,4 @@ variable "key_name" {}
 variable "user_data_path" {}
 variable "instance_count" {}
 variable "lb_target_group_arn" {}
+variable "lb_id" {}
