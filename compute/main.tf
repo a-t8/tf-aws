@@ -27,17 +27,17 @@ resource "aws_key_pair" "atul_auth" {
   }
 }
 
-resource "aws_instance" "public-instance" {
-  count         = 1
+resource "aws_instance" "private-instance" {
+  count         = var.instance_count
   ami           = data.aws_ami.amazon-linux-2.id
   instance_type = var.instance_type
   tags = {
-    Name = "PublicInstance"
+    Name = "PrivateInstance"
   }
   user_data              = file(var.user_data_path)
   key_name               = aws_key_pair.atul_auth.id
-  vpc_security_group_ids = [var.public_sg]
-  subnet_id              = var.public_subnets[count.index]
+  vpc_security_group_ids = [var.private_sg]
+  subnet_id              = var.private_subnets[count.index]
 
   root_block_device {
     volume_size = var.vol_size
