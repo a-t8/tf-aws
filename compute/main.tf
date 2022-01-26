@@ -43,3 +43,10 @@ resource "aws_instance" "private-instance" {
     volume_size = var.vol_size
   }
 }
+
+resource "aws_lb_target_group_attachment" "dev-tg-attachment" {
+  count            = var.instance_count
+  target_group_arn = var.lb_target_group_arn
+  target_id        = aws_instance.private-instance[count.index].id
+  port             = 80
+}
