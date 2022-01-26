@@ -1,6 +1,10 @@
 variable "instance_type" {}
 variable "public_sg" {}
 variable "public_subnets" {}
+variable "private_subnets" {}
+variable "private_sg" {}
 variable "vol_size" {}
 variable "key_name" {}
 variable "user_data_path" {}
+variable "instance_count" {}
+variable "lb_target_group_arn" {}

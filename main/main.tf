@@ -13,11 +13,24 @@ module "network" {
 }
 
 module "compute" {
-  source         = "../compute"
+  source              = "../compute"
+  public_sg           = module.network.public_sg
+  public_subnets      = module.network.public_subnets
+  private_subnets     = module.network.private_subnets
+  private_sg          = module.network.private_sg
+  instance_type       = "t3.micro"
+  instance_count      = 1
+  vol_size            = "10"
+  user_data_path      = "${path.root}/userdata.tpl"
+  key_name            = "atulkey"
+  lb_target_group_arn = module.loadbalancer.lb_target_group_arn
+}
+
+module "loadbalancer" {
+  source         = "../loadbalancer"
   public_sg      = module.network.public_sg
   public_subnets = module.network.public_subnets
-  instance_type  = "t2.micro"
-  vol_size       = "10"
-  user_data_path = "${path.root}/userdata.tpl"
-  key_name       = "atulkey"
+  vpc_id         = module.network.vpc_id
+  port           = 80
+  protocol       = "HTTP"
 }
