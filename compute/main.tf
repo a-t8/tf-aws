@@ -28,6 +28,13 @@ resource "aws_key_pair" "atul_auth" {
 }
 
 
+resource "aws_lb_target_group_attachment" "dev-tg-attachment" {
+  count            = var.instance_count
+  target_group_arn = var.lb_target_group_arn
+  target_id        = var.lb_id
+  port             = 80
+}
+
 resource "aws_launch_configuration" "atul-launch-configuration" {
   name_prefix     = "atul-ec2-"
   image_id        = data.aws_ami.amazon-linux-2.id
