@@ -24,6 +24,7 @@ module "compute" {
   user_data_path      = "${path.root}/userdata.tpl"
   key_name            = "atulkey"
   lb_target_group_arn = module.loadbalancer.lb_target_group_arn
+  lb_id               = module.loadbalancer.lb_id
 }
 
 module "loadbalancer" {

@@ -27,26 +27,33 @@ resource "aws_key_pair" "atul_auth" {
   }
 }
 
-resource "aws_instance" "private-instance" {
-  count         = var.instance_count
-  ami           = data.aws_ami.amazon-linux-2.id
-  instance_type = var.instance_type
-  tags = {
-    Name = "PrivateInstance"
-  }
-  user_data              = file(var.user_data_path)
-  key_name               = aws_key_pair.atul_auth.id
-  vpc_security_group_ids = [var.private_sg]
-  subnet_id              = var.private_subnets[count.index]
+resource "aws_launch_configuration" "atul-launch-configuration" {
+  name_prefix     = "atul-ec2-"
+  image_id        = data.aws_ami.amazon-linux-2.id
+  instance_type   = var.instance_type
+  key_name        = aws_key_pair.atul_auth.id
+  security_groups = [var.private_sg]
+  user_data       = file(var.user_data_path)
 
-  root_block_device {
-    volume_size = var.vol_size
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
-resource "aws_lb_target_group_attachment" "dev-tg-attachment" {
-  count            = var.instance_count
-  target_group_arn = var.lb_target_group_arn
-  target_id        = aws_instance.private-instance[count.index].id
-  port             = 80
+resource "aws_autoscaling_group" "atul-autoscaling-group" {
+  name                 = "${aws_launch_configuration.atul-launch-configuration.name}-asg"
+  min_size             = 1
+  desired_capacity     = 2
+  max_size             = 3
+  health_check_type    = "ELB"
+  target_group_arns    = [var.lb_target_group_arn]
+  launch_configuration = aws_launch_configuration.atul-launch-configuration.name
+  vpc_zone_identifier  = [var.public_subnets[1]]
+}
+resource "aws_autoscaling_policy" "dev-scaling-policy" {
+  name = "dev-scaling-policy"
+  scaling_adjustment = 3
+  adjustment_type = "ChangeInCapacity"
+  cooldown = 300
+  autoscaling_group_name = aws_autoscaling_group.atul-autoscaling-group.name
 }
