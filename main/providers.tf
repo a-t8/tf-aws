@@ -7,7 +7,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "atul--uw2-tf-bucket"
+    bucket         = "atul-tiwari-tf-state-bucket"
     key            = "main/terraform.tfstate"
     region         = "us-west-2"
     dynamodb_table = "atul-tf-table"

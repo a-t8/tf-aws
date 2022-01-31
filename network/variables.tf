@@ -33,3 +33,5 @@ variable "access_ip" {
 }
 
 variable "security_groups" {}
+
+variable "db_subnet_group" {}
