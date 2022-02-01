@@ -42,13 +42,13 @@ locals {
       }
     }
     rds = {
-      name = "rds_sg"
+      name        = "rds_sg"
       description = "rds access"
       ingress = {
         mysql = {
-          from = 3306
-          to = 3306
-          protocol = "tcp"
+          from        = 3306
+          to          = 3306
+          protocol    = "tcp"
           cidr_blocks = [local.vpc_cidr]
 
         }
