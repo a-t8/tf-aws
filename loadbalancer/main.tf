@@ -27,13 +27,13 @@ resource "aws_lb_listener" "dev_lb_listener" {
 resource "aws_route53_record" "a-record-for-alb" {
 
   zone_id = "Z01699103FKMF8RFA4FA0"
-  name = "atul-tiwari.com"
-  type = "A"
+  name    = "atul-tiwari.com"
+  type    = "A"
 
   alias {
-    name = aws_lb.dev-loadbalancer.dns_name
-    zone_id = aws_lb.dev-loadbalancer.zone_id
+    name                   = aws_lb.dev-loadbalancer.dns_name
+    zone_id                = aws_lb.dev-loadbalancer.zone_id
     evaluate_target_health = true
   }
-  
+
 }
