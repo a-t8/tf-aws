@@ -1,4 +1,3 @@
-
 data "aws_availability_zones" "available" {}
 
 resource "random_shuffle" "az_list" {
@@ -146,4 +145,14 @@ resource "aws_security_group" "atul_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_db_subnet_group" "atul_rds_subnetgroup" {
+  count      = var.db_subnet_group == "true" ? 1 : 0
+  name       = "atul_rds_subnetgroup"
+  subnet_ids = aws_subnet.atul_private_subnet.*.id
+  tags = {
+    Name = "atul_rds_sg"
+  }
+
 }

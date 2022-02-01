@@ -1,10 +1,10 @@
 resource "aws_s3_bucket" "atul_state_bucket" {
-  bucket        = "atul--uw2-tf-bucket"
+  bucket        = "atul-tiwari-tf-state-bucket"
   acl           = "private"
   force_destroy = false
 
   tags = {
-    Name = "atul--uw2-tf-bucket"
+    Name = "atul-tiwari-tf-state-bucket"
   }
 }
 

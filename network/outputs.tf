@@ -13,3 +13,9 @@ output "public_subnets" {
 output "private_subnets" {
   value = aws_subnet.atul_private_subnet.*.id
 }
+output "db_security_group" {
+  value = [aws_security_group.atul_sg["rds"].id]
+}
+output "db_subnet_group_name" {
+  value = aws_db_subnet_group.atul_rds_subnetgroup.*.name
+}
