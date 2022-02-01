@@ -10,7 +10,7 @@ module "network" {
   access_ip        = local.access_ip
   security_groups  = local.security_groups
   env_code         = "env_a"
-  db_subnet_group = "true"
+  db_subnet_group  = "true"
 }
 
 module "compute" {
@@ -38,16 +38,16 @@ module "loadbalancer" {
 }
 
 module "database" {
-  source = "../database"
-  db_engine_version = "5.7.22"
-  db_instance_class = "db.t2.micro"
-  dbname = "devdb"
-  db_identifier = "atul-dev-db"
-  skip_final_snapshot = false 
-  backup_window = "00:00-02:00"
-  backup_retention_period = 7
-  db_subnet_group_name = module.network.db_subnet_group_name[0]
-  vpc_security_group_ids = module.network.db_security_group
-  multi_az = true
+  source                           = "../database"
+  db_engine_version                = "5.7.22"
+  db_instance_class                = "db.t2.micro"
+  dbname                           = "devdb"
+  db_identifier                    = "atul-dev-db"
+  skip_final_snapshot              = false
+  backup_window                    = "00:00-02:00"
+  backup_retention_period          = 7
+  db_subnet_group_name             = module.network.db_subnet_group_name[0]
+  vpc_security_group_ids           = module.network.db_security_group
+  multi_az                         = true
   final_snapshot_identifier_suffix = "dev-final-snapshot"
 }

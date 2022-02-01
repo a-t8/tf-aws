@@ -51,9 +51,9 @@ resource "aws_autoscaling_group" "atul-autoscaling-group" {
   vpc_zone_identifier  = [var.private_subnets[0]]
 }
 resource "aws_autoscaling_policy" "dev-scaling-policy" {
-  name = "dev-scaling-policy"
-  scaling_adjustment = 3
-  adjustment_type = "ChangeInCapacity"
-  cooldown = 300
+  name                   = "dev-scaling-policy"
+  scaling_adjustment     = 3
+  adjustment_type        = "ChangeInCapacity"
+  cooldown               = 300
   autoscaling_group_name = aws_autoscaling_group.atul-autoscaling-group.name
 }
