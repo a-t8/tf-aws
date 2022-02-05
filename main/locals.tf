@@ -20,6 +20,7 @@ locals {
           protocol    = "tcp"
           cidr_blocks = [local.access_ip]
         }
+        
         https = {
           from        = 443
           to          = 443
