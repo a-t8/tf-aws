@@ -33,14 +33,14 @@ module "loadbalancer" {
   public_sg      = module.network.public_sg
   public_subnets = module.network.public_subnets
   vpc_id         = module.network.vpc_id
-  port           = 80
-  protocol       = "HTTP"
+  port           = 443
+  protocol       = "HTTPS"
 }
 
 module "database" {
   source                           = "../database"
-  db_engine_version                = "5.7.22"
-  db_instance_class                = "db.t2.micro"
+  db_engine_version                = "5.7.33"
+  db_instance_class                = "db.t3.micro"
   dbname                           = "devdb"
   db_identifier                    = "atul-dev-db"
   skip_final_snapshot              = false
