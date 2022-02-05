@@ -51,6 +51,7 @@ resource "aws_acm_certificate" "ssl-cert-for-alb" {
   tags = {
     Environment = "dev"
   }
+  
   lifecycle {
     create_before_destroy = true
   }
