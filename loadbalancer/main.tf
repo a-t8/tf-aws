@@ -55,6 +55,7 @@ resource "aws_acm_certificate" "ssl-cert-for-alb" {
     create_before_destroy = true
   }
 }
+
 resource "aws_route53_record" "cert-validations" {
   for_each = {
     for rec in aws_acm_certificate.ssl-cert-for-alb.domain_validation_options : rec.domain_name => {
