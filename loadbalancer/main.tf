@@ -76,6 +76,7 @@ data "aws_route53_zone" "atul-tiwari_com" {
   name         = "atul-tiwari.com"
   private_zone = false
 }
+
 resource "aws_acm_certificate_validation" "acm-validation" {
   certificate_arn         = aws_acm_certificate.ssl-cert-for-alb.arn
   validation_record_fqdns = [for record in aws_route53_record.cert-validations : record.fqdn]
