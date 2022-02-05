@@ -70,8 +70,8 @@ resource "aws_route53_record" "cert-validations" {
   ttl             = 60
   type            = each.value.type
   zone_id         = data.aws_route53_zone.atul-tiwari_com.zone_id
-
 }
+
 data "aws_route53_zone" "atul-tiwari_com" {
   name         = "atul-tiwari.com"
   private_zone = false
