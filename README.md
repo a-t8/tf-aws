@@ -1,2 +1,1 @@
-# EC2 using Terraform
-# tf-ec2
+# AWS Resources using Terraform
